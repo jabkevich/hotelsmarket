@@ -35,13 +35,10 @@ export default {
     }
   },
   beforeMount() {
-    console.log("hotel.slug")
-    console.log(window.location.href)
-    history.pushState(
-      {},
-      null,
-      window.location.href.replace(/\/hotel\/(.+\/|.+$)/, '/')
-    )
+    const href = window.location.href.match(/(?<=\/\/).+(?=\.h)/);
+    if(href){
+      this.$router.push(`/hotel/${href[0]}/`)
+    }
   }
 }
 </script>

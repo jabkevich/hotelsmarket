@@ -2,7 +2,8 @@
   <div class="footer">
     <div class="container">
       <div class="copyright-line">
-        <span class="copyright">2022 © {{ mainUrl }}</span>
+<!--        <span class="copyright">2022 © {{ mainUrl }}</span>-->
+        <span class="copyright">Официальный сайт </span>
         <a :href="`tel:${mainPhone.value}`" class="phone">{{ mainPhone.formattedValue }}</a>
 
         <div class="messengers">
@@ -30,8 +31,8 @@ export default {
   computed: {
     mainPhone() {
       let phone = {
-        value: process.env.MAIN_PHONE,
-        formattedValue: this.formatPhone(process.env.MAIN_PHONE)
+        value: process.env.FOOTER_PHONE,
+        formattedValue: this.formatPhone(process.env.FOOTER_PHONE)
       }
       return phone
     },

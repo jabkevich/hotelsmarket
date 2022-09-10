@@ -1,13 +1,10 @@
 <template>
-  <div class="app-wrapper booking-app-wrapper">
+  <div class="app-wrapper">
     <transition name="fade">
       <loader class="preloader-container" v-if="preloader" object="#133361" color1="#1F5299" color2="#1F5299" size="10" speed="2" bg="#343a40" objectbg="#999793" opacity="60" name="dots"></loader>
     </transition>
     <page-header class="main-header"/>
-    <div class="main-content">
-      <div class="search-form">
-        <booking-form-short :disabled="true"/>
-      </div>
+    <div class="main-content main-content-white">
       <nuxt/>
     </div>
     <page-footer/>
@@ -18,13 +15,13 @@
 
 <script>
 const PageHeader = () => import ("../components/PageHeader")
-const BookingFormShort = () => import ("@/components/BookingFormShort")
 const PageFooter = () => import ("../components/PageFooter")
 
 export default {
-  name: "MainLayout",
+  name: "MainLayoutWhite",
+  transition: 'main',
   components: {
-    PageHeader, PageFooter, BookingFormShort
+    PageHeader, PageFooter
   },
   computed: {
     preloader() {
@@ -37,9 +34,28 @@ export default {
       document.documentElement.scrollTop = 0
     }
   },
+  beforeMount() {
+    let hotel = "";
+    if(window.location.href.indexOf("https://hotelsmarket.ru") !== -1 && window.location.href.match(/\/hotel\/(.+)\/|\/hotel\/(.+)/) !== null){
+      hotel = window.location.href.match(/\/hotel\/(.+)\/|\/hotel\/(.+)/)[2];
+      window.location.href = `https://${hotel}.hotelsmarket.ru/hotel/${hotel}`;
+    }
+    // if(window.location.href.indexOf("https://hotelsmarket.ru") === -1){
+    //   this.$router.push("hotel/" + window.location.href.match(/\/\/(.+)\.h/)[1])
+    // }
+  }
   // beforeMount() {
   //   console.log("hotel.slug")
   //   console.log(window.location.href)
+  //
+  //
+  //   history.pushState(
+  //     {},
+  //     null,
+  //     window.location.href.replace(/\/hotel\/(.+\/|.+$)/, '/')
+  //   )
+  // },
+  // mounted() {
   //   history.pushState(
   //     {},
   //     null,
@@ -49,28 +65,19 @@ export default {
 }
 </script>
 
-<style lang="less">
-.booking-app-wrapper{
+<style scoped lang="less">
+.app-wrapper{
   display:flex;
   flex-direction: column;
-  height:100%;
-  .disabled{
-    .booking-main-form input,
-    .icon-calendar,
-    .vs__selected,
-    .icon-lock,
-    .promo-toggle,
-    .vs__open-indicator{
-      color:#CCCCCC !important;
-    }
-    .vs--disabled .vs__clear, .vs--disabled .vs__dropdown-toggle, .vs--disabled .vs__open-indicator, .vs--disabled .vs__search, .vs--disabled .vs__selected{
-      background:#FFFFFF!important;
-
-    }
+  min-height:100%;
+  .main-content{
+    flex-grow: 1;
   }
-
 }
-@media(max-width:767px){
+.main-header{
+  position: sticky !important;
+  left: 0;
+  top: 0;
+  z-index: 99999;
 }
-
 </style>

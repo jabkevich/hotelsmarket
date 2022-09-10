@@ -1,10 +1,10 @@
 <template>
   <div class="header">
     <div class="container flex" :class="{'nowrap':!menuActive}">
-        <nuxt-link to="/" class="logo">
-
-          <img class="logo-img" :src="require(`@/assets/img/${appLogo}`)" alt="">
-        </nuxt-link>
+        <a href="https://hotelsmarket.ru/" class="logo" id="logo">
+          Отель
+<!--          <img class="logo-img" :src="require(`@/assets/img/${appLogo}`)" alt="">-->
+        </a>
         <transition name="menu-slide">
           <div key="hotelMenu" class="hotel-menu-left hotel-menu-left-name flex" v-if="($store.state.currentHotel && $route.fullPath.indexOf('/hotel/') !== -1) || ($store.state.currentHotel && $route.params.hotelId)">
             <span class="header-hotel-name"><nuxt-link :to="`/hotel/${this.currentHotel.slug}`">{{this.currentHotel.name}}</nuxt-link> </span>
@@ -17,13 +17,13 @@
             <a class="telegram-link" target="_blank" :href="`https://t.me/${telegram}`"><span class="icon-telegram"></span></a>
           </div>
         </transition>
-      <div @click="menuToggle" class="menu-toggle" :class="{'active': menuActive}">
+      <div @click="menuToggle()" class="menu-toggle" :class="{'active': menuActive}" >
         <transition name="toggle">
           <span key="menu" v-if="!menuActive" class="icon-menu"></span>
           <span key="close" v-else class="icon-close"></span>
         </transition>
       </div>
-      <div :class="{'active': menuActive}" class="menu-wrapper flex">
+      <div :class="{'menu-wrapper_open': menuActive}" class="menu-wrapper flex" >
         <div class="messengers flex desktop-hidden" v-if="menuActive" >
           <a target="_blank" :href="`https://wa.me/${whatsapp}`"><span class="icon-whatsapp"></span></a>
           <a target="_blank" :href="`https://t.me/${telegram}`"><span class="icon-telegram"></span></a>
@@ -40,6 +40,7 @@
           </div>
           <div key="commonMenu" class="right-part flex" v-else>
           <ul class="menu flex">
+            <a  href="bonus">Бонус</a>
             <li @click="scrollToMethod('directions')">Популярные направления</li>
             <li @click="scrollToMethod('about')">О сервисе</li>
             <li @click="scrollToMethod('reviews')">Отзывы</li>
@@ -95,7 +96,11 @@ export default {
       return result
     },
     menuToggle () {
+
       this.menuActive = !this.menuActive
+    },
+    push (href){
+      this.$router.push(`/${href}`)
     },
     scrollToMethod( anchor ) {
       this.menuActive = !this.menuActive
@@ -104,6 +109,7 @@ export default {
     }
   },
   mounted() {
+    document.getElementById("logo").style.background = "red"
     window.innerWidth ? this.windowWidth = window.innerWidth : this.windowWidth = 0
 
   }
@@ -166,6 +172,8 @@ export default {
       position: relative;
       .logo{
         display:flex;
+        align-items: center;
+        justify-content: center;
       }
       .hotel-menu-left{
         a{
@@ -279,7 +287,7 @@ export default {
         .logo{
           position: absolute;
           left:15px;
-          top:10px;
+          top: 15px;
         }
         .menu-toggle{
           position: absolute;
@@ -323,7 +331,7 @@ export default {
         }
         .menu-wrapper{
           width:100%;
-          max-height:0;
+          height:0;
           overflow: hidden;
           transition: max-height 0.3s ease;
           display:flex;
@@ -341,9 +349,12 @@ export default {
               }
             }
           }
-          &.active{
-            max-height:250px;
-          }
+          //&.active{
+          //  height:250px;
+          //}
+        }
+        .menu-wrapper_open {
+          height: 250px;
         }
         .account{
           padding:20px 0;

@@ -299,6 +299,7 @@ export default {
     }
   },
   async asyncData({store, params}) {
+    console.log("ALOOOOOOOOOO, ",  params.slug);
     const hotel = await store.dispatch('getHotelBySlug', params.slug)
     const region = (hotel.city.region.name).replace(' ', '+')
     const services = await store.dispatch('getServices') || []
