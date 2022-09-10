@@ -35,9 +35,9 @@ export default {
     }
   },
   beforeMount() {
-    const href = window.location.href.match(/(?<=\/\/).+(?=\.h)/);
+    const href = window.location.href.match(/(?:\/\/)(.+)(?:\.h)/);
     if(href){
-      this.$router.push(`/hotel/${href[0]}/`)
+      this.$router.push(`/hotel/${href[1]}/`)
     }
   }
 }

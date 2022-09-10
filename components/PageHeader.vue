@@ -109,11 +109,12 @@ export default {
     }
   },
   mounted() {
-    document.getElementById("logo").style.background = "red"
+
     window.innerWidth ? this.windowWidth = window.innerWidth : this.windowWidth = 0
 
   }
 }
+
 </script>
 
 <style scoped lang="less">
