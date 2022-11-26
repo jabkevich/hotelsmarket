@@ -251,7 +251,6 @@ export default {
         if (this.formData.stars ) {
           result = [...this.formData.stars].sort( (a, b) => a - b)
         }
-        console.log(result)
         return result
 
       },
@@ -279,8 +278,6 @@ export default {
   },
   methods: {
     disabledRange: function (date) {
-      console.log(date)
-      console.log(new Date())
       return new Date(date) < new Date();
     },
     removeYear(index){

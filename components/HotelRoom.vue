@@ -93,7 +93,6 @@ export default {
       return ''
     },
     currentRoom () {
-      console.log('this.room.room ? this.room.room : this.room', this.room.room ? this.room.room : this.room)
       return this.room.room ? this.room.room : this.room
     },
     searchDates () {
@@ -124,7 +123,6 @@ export default {
       const array = []
       if (this.currentRoom.services) {
         this.currentRoom.services.forEach(item => {
-          console.log(item)
 
           if (item.service) {
             if (item.service.icon) array.push(item)
@@ -148,7 +146,6 @@ export default {
     },
     totalPrice () {
       let prices = []
-      console.log(this.room.tariffs)
       if (this.room.tariffs) {
         for (let key in this.room.tariffs) {
           if (this.room.tariffs[key].prices.total.prices) prices.push(this.room.tariffs[key].prices.total.prices.RUB)

@@ -34,38 +34,7 @@ export default {
       document.documentElement.scrollTop = 0
     }
   },
-  beforeMount() {
-    // let hotel = "";
-    // if(window.location.href.indexOf("https://hotelsmarket.ru") !== -1 && window.location.href.match(/\/hotel\/(.+)\/|\/hotel\/(.+)/) !== null){
-    //   hotel = window.location.href.match(/\/hotel\/(.+)\/|\/hotel\/(.+)/)[2];
-    //   window.location.href = `https://${hotel}.hotelsmarket.ru/hotel/${hotel}`;
-    // }
-    // if(window.location.href.indexOf("https://hotelsmarket.ru") === -1){
-    //   this.$router.push("hotel/" + window.location.href.match(/\/\/(.+)\.h/)[1])
-    // }
-    const href = window.location.href.match(/(?:\/\/)(.+)(?:\.h)/);
-    if(href){
-      this.$router.push(`/hotel/${href[1]}/`)
-    }
-  }
-  // beforeMount() {
-  //   console.log("hotel.slug")
-  //   console.log(window.location.href)
-  //
-  //
-  //   history.pushState(
-  //     {},
-  //     null,
-  //     window.location.href.replace(/\/hotel\/(.+\/|.+$)/, '/')
-  //   )
-  // },
-  // mounted() {
-  //   history.pushState(
-  //     {},
-  //     null,
-  //     window.location.href.replace(/\/hotel\/(.+\/|.+$)/, '/')
-  //   )
-  // }
+
 }
 </script>
 

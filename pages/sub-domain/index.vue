@@ -47,8 +47,8 @@
       <div v-if="roomsListFirst.length" class="container">
         <div class="title">
           <span class="name">Выберите номер</span>
-          <nuxt-link :to="`${$route.fullPath}/rooms`" class="learn-more-btn btn mobile-hidden">Смотреть номера отеля</nuxt-link>
-          <nuxt-link :to="`${$route.fullPath}/rooms`" class="learn-more-btn btn-mobile btn-link">Смотреть номера<span class="icon-arrow-right"></span></nuxt-link>
+          <nuxt-link :to="`/rooms`" class="learn-more-btn btn mobile-hidden">Смотреть номера отеля</nuxt-link>
+          <nuxt-link :to="`/rooms`" class="learn-more-btn btn-mobile btn-link">Смотреть номера<span class="icon-arrow-right"></span></nuxt-link>
         </div>
         <div class="rooms-wrapper">
           <hotel-room :room="room" :withPrice="true" :key="room.id" :services="services" v-for="room of roomsListFirst"/>
@@ -250,26 +250,26 @@ export default {
       modal: false,
       guests: '',
       comfortList: [
+        // {
+        //   id: 1,
+        //   icon: 'icon-images',
+        //   title: 'Удобный поиск отелей',
+        //   description: 'В поиске выберите город или отель, даты проживания, количество гостей, и мы найдем для вас самые лучшие предложения'
+        // },
         {
           id: 1,
-          icon: 'icon-images',
-          title: 'Удобный поиск отелей',
-          description: 'В поиске выберите город или отель, даты проживания, количество гостей, и мы найдем для вас самые лучшие предложения'
-        },
-        {
-          id: 2,
           icon: 'icon-guaranteed',
           title: 'Гарантия лучших тарифов',
           description: 'Найдете дешевле - мы предоставим такую же цену и сделаем дополнительную скидку для вашей лучшей выгоды'
         },
         {
-          id: 3,
+          id: 2,
           icon: 'icon-star',
           title: 'Безопасность бронирования',
           description: 'Сервис работает с партнерами напрямую, это позволяет гостям не беспокоится о достоверности их цен и услуг'
         },
         {
-          id: 4,
+          id: 3,
           icon: 'icon-card',
           title: 'Бесплатная отмена',
           description: 'Во многих отелях действует бесплатная отмена бронирования, ищите эту информацию в описании места отдыха'
@@ -298,9 +298,32 @@ export default {
       ],
     }
   },
-  async asyncData({store, params}) {
-    const hotel = await store.dispatch('getHotelBySlug', params.slug)
+
+
+  async asyncData({store, params, req, redirect}) {
+    // if (process.server) {
+    //   console.log(req.headers.host.match(/(?:\/\/)(.+)(?:\.h)/))
+    // }
+    const getSubDomen = () => {
+      if(process.server){
+        const host = req.headers.host;
+        const hostArray = host.split(".");
+        const subDomen = hostArray[0].replace("https://", "").replace("http://");
+        return subDomen;
+      } else {
+        const host =  window.location.href;
+        const hostArray = host.split(".");
+        const subDomen = hostArray[0].replace("https://", "").replace("http://", "");
+        return subDomen;
+      }
+    }
+
+    const hotel = await store.dispatch('getHotelBySlug', getSubDomen());
+    if(!hotel) {
+      redirect('https://hotelsmarket.ru/')
+    }
     const region = (hotel.city.region.name).replace(' ', '+')
+    console.log("region");
     const services = await store.dispatch('getServices') || []
     const address = `${hotel.zip_code}+${region}+${hotel.city.name}+${hotel.street_name}+${hotel.street_number}`
     store.commit('SET_LOCAL_SEARCH_DATA', null)

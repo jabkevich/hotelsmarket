@@ -97,13 +97,13 @@ export default {
       console.log(this.$router)
       console.log(hotel.slug)
       // this.$router.push(`${hotel.slug}.hotelsmarket.ru/hotel/${hotel.slug}`)
-      window.location.href = (`https://${hotel.slug}.hotelsmarket.ru/hotel/${hotel.slug}`)
+      window.location.href = (`https://${hotel.slug}.hotelsmarket.ru/`)
     },
     toRoomsPage(hotel) {
       this.$store.commit('SET_SELECTED_HOTEL', hotel)
       // this.$router.push(`${hotel.slug}.hotelsmarket.ru/hotel/${hotel.slug}/rooms`)
-      console.log(hotel.slug)
-      window.location.href = (`https://${hotel.slug}.hotelsmarket.ru/hotel/${hotel.slug}/rooms`)
+
+      window.location.href = (`https://${hotel.slug}.hotelsmarket.ru/rooms`)
     },
     async fetchHotels(searchParams) {
       try{
@@ -114,13 +114,7 @@ export default {
         console.log(e)
       }
     },
-    addHashToLocation(params) {
-      history.pushState(
-        {},
-        null,
-        "/"
-      )
-    }
+
 
   },
   async mounted() {
@@ -131,7 +125,6 @@ export default {
       await this.fetchHotels(searchParams)
     }
     this.$store.commit('PRELOADER_TOGGLE', false)
-    this.addHashToLocation('')
   },
 
 }

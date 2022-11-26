@@ -2,6 +2,8 @@
 
 ## Build Setup
 
+fuser -k 3000/tcp
+
 ```bash
 # install dependencies
 $ npm install

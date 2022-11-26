@@ -63,7 +63,8 @@ export default {
   buildModules: [
     '@nuxtjs/laravel-echo',
     '@nuxtjs/date-fns',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    ['@nuxtjs/router', { keepDefaultRouter: true }]
   ],
   dateFns: {
     defaultLocale: 'ru'

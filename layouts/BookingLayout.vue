@@ -17,9 +17,9 @@
 
 
 <script>
-const PageHeader = () => import ("../components/PageHeader")
+const PageHeader = () => import ("@/components/PageHeader")
 const BookingFormShort = () => import ("@/components/BookingFormShort")
-const PageFooter = () => import ("../components/PageFooter")
+const PageFooter = () => import ("@/components/PageFooter")
 
 export default {
   name: "MainLayout",
@@ -37,15 +37,6 @@ export default {
       document.documentElement.scrollTop = 0
     }
   },
-  // beforeMount() {
-  //   console.log("hotel.slug")
-  //   console.log(window.location.href)
-  //   history.pushState(
-  //     {},
-  //     null,
-  //     window.location.href.replace(/\/hotel\/(.+\/|.+$)/, '/')
-  //   )
-  // }
 }
 </script>
 

@@ -19,6 +19,7 @@
         </span>
       <div class="block-info">
         <span class="name">Телефон</span>
+<!--        <p><a :href="`tel:${mainPhone.value}`" class="phone">{{ mainPhone.formattedValue }}</a></p>-->
         <p><a :href="`tel:${mainPhone.value}`" class="phone">{{ mainPhone.formattedValue }}</a></p>
       </div>
       </div><div class="block">
@@ -67,8 +68,8 @@ export default {
   computed:{
     mainPhone() {
       let phone = {
-        value: process.env.MAIN_PHONE,
-        formattedValue: this.formatPhone(process.env.MAIN_PHONE)
+        value: this.hotel?.meta_description ?? process.env.MAIN_PHONE,
+        formattedValue: this.formatPhone(this.hotel?.meta_description ?? process.env.MAIN_PHONE)
       }
       return phone
     },

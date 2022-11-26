@@ -34,7 +34,7 @@ export default {
       ],
     }
   },
-  async asyncData({store, params, req}) {
+  async asyncData({store, params, req, redirect}) {
     const getSubDomen = () => {
       if(process.server){
         const host = req.headers.host;
@@ -49,7 +49,13 @@ export default {
       }
     }
 
-    await store.dispatch('getHotelBySlug', getSubDomen())
+    const hotel = await store.dispatch('getHotelBySlug', getSubDomen());
+    if(!hotel) {
+      redirect('https://hotelsmarket.ru/')
+    }
+
+    return hotel;
+
   },
   computed: {
     mobileCheck () {

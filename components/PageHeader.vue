@@ -6,8 +6,9 @@
 <!--          <img class="logo-img" :src="require(`@/assets/img/${appLogo}`)" alt="">-->
         </a>
         <transition name="menu-slide">
-          <div key="hotelMenu" class="hotel-menu-left hotel-menu-left-name flex" v-if="($store.state.currentHotel && $route.fullPath.indexOf('/hotel/') !== -1) || ($store.state.currentHotel && $route.params.hotelId)">
-            <span class="header-hotel-name"><nuxt-link :to="`/hotel/${this.currentHotel.slug}`">{{this.currentHotel.name}}</nuxt-link> </span>
+          <div key="hotelMenu" class="hotel-menu-left hotel-menu-left-name flex" v-if="($store.state.currentHotel ) || ($store.state.currentHotel && $route.params.hotelId)">
+<!--            <span class="header-hotel-name"><nuxt-link :to="`/hotel/${this.currentHotel.slug}`">{{this.currentHotel.name}}</nuxt-link> </span>-->
+            <span class="header-hotel-name"><nuxt-link :to="`/`">{{this.currentHotel.name}}</nuxt-link> </span>
             <a class="whatsapp-link" target="_blank" :href="`https://wa.clck.bar/${whatsapp}`"><span class="icon-whatsapp"></span></a>
             <a class="telegram-link" target="_blank" :href="`https://t.me/${telegram}`"><span class="icon-telegram"></span></a>
           </div>
@@ -29,18 +30,18 @@
           <a target="_blank" :href="`https://t.me/${telegram}`"><span class="icon-telegram"></span></a>
         </div>
         <transition name="menu-slide">
-          <div key="hotelMenu" class="right-part flex" v-if="($store.state.currentHotel && $route.fullPath.indexOf('/hotel/') !== -1) || ($store.state.currentHotel && $route.params.hotelId)">
+          <div key="hotelMenu" class="right-part flex" v-if="($store.state.currentHotel ) || ($store.state.currentHotel && $route.params.hotelId)">
             <ul class="menu flex">
-              <li @click="menuActive = !menuActive"><nuxt-link  :to="`/hotel/${currentHotel.slug}`">Главная</nuxt-link></li>
-              <li @click="menuActive = !menuActive"><nuxt-link  :to="`/hotel/${currentHotel.slug}/about`">Об отеле</nuxt-link></li>
-              <li @click="menuActive = !menuActive"><nuxt-link  :to="`/hotel/${currentHotel.slug}/rooms`">Номерной фонд</nuxt-link></li>
-              <li @click="menuActive = !menuActive"><nuxt-link  :to="`/hotel/${currentHotel.slug}/gallery`">Галерея</nuxt-link></li>
+              <li @click="menuActive = !menuActive"><nuxt-link  :to="`/`">Главная</nuxt-link></li>
+              <li @click="menuActive = !menuActive"><nuxt-link  :to="`/about`">Об отеле</nuxt-link></li>
+              <li @click="menuActive = !menuActive"><nuxt-link  :to="`/rooms`">Номерной фонд</nuxt-link></li>
+              <li @click="menuActive = !menuActive"><nuxt-link  :to="`/gallery`">Галерея</nuxt-link></li>
               <li @click="scrollToMethod('contactBlock')">Контакты</li>
             </ul>
           </div>
           <div key="commonMenu" class="right-part flex" v-else>
           <ul class="menu flex">
-            <a  href="bonus">Бонус</a>
+            <li @click="push('bonus')">Бонус</li>
             <li @click="scrollToMethod('directions')">Популярные направления</li>
             <li @click="scrollToMethod('about')">О сервисе</li>
             <li @click="scrollToMethod('reviews')">Отзывы</li>
@@ -73,8 +74,8 @@ export default {
     },
     mainPhone() {
       let phone = {
-        value: process.env.MAIN_PHONE,
-        formattedValue: this.formatPhone(process.env.MAIN_PHONE)
+        value: process.env.FOOTER_PHONE,
+        formattedValue: this.formatPhone(process.env.FOOTER_PHONE)
       }
       return phone
     },
@@ -104,8 +105,8 @@ export default {
     },
     scrollToMethod( anchor ) {
       this.menuActive = !this.menuActive
-      if (anchor === 'contactBlock') this.$route.name === 'hotel-slug' ? this.$scrollTo(document.querySelector('#contactBlock')) : this.$router.push({name: 'hotel-slug', params: {scroll: 'contactBlock'}})
-      if (anchor === 'directions' || anchor === 'about' || anchor === 'reviews') this.$route.name === 'index' ? this.$scrollTo(document.querySelector(`#${anchor}`)) : this.$router.push({name: 'index', params: {scroll: anchor}})
+      if (anchor === 'contactBlock')   this.$route.path === '/'  ? this.$scrollTo(document.querySelector('#contactBlock')) : this.$router.push({path: '/', params: {scroll: 'contactBlock'}})
+      if (anchor === 'directions' || anchor === 'about' || anchor === 'reviews')  this.$route.path === '/' ? this.$scrollTo(document.querySelector(`#${anchor}`)) : this.$router.push({path: '/', params: {scroll: anchor}})
     }
   },
   mounted() {

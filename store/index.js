@@ -220,6 +220,7 @@ export const actions = {
 	async getHotelBySlug ({commit, state}, slug) {
 		try{
 			let hotel =  await this.$axios.$get(`${process.env.API_URL}hotels/${slug}`)
+      console.log("ALO SUKA BLAT")
 			commit('SET_CURRENT_HOTEL', hotel)
 			return hotel
 		} catch(e) {

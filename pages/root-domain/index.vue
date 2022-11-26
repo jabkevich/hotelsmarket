@@ -31,11 +31,11 @@
 <script>
 import {mapActions} from "vuex";
 
-const BookingForm = () => import ("../components/BookingForm")
-const TourDirections = () => import ("../components/TourDirections")
-const TourComfort = () => import ("../components/TourComfort")
-const HotelsInfo = () => import ("../components/HotelsInfo")
-const FeedbackBlock = () => import ("../components/FeedbackBlock")
+const BookingForm = () => import ("@/components/BookingForm")
+const TourDirections = () => import ("@/components/TourDirections")
+const TourComfort = () => import ("@/components/TourComfort")
+const HotelsInfo = () => import ("@/components/HotelsInfo")
+const FeedbackBlock = () => import ("@/components/FeedbackBlock")
 export default {
   name: "MainPage",
   layout: 'MainLayout',

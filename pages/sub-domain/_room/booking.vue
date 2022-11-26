@@ -53,13 +53,6 @@ export default {
     }
   },
 
-  beforeMount() {
-    history.pushState(
-      {},
-      null,
-      "/"
-    )
-  },
 
   computed: {
 

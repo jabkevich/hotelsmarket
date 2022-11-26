@@ -105,13 +105,11 @@ export default {
     toHotelPage(hotel) {
       // console.log(this.$router)
       // this.$router.push(`${hotel.slug}.hotelsmarket.ru/hotel/${hotel.slug}`)
-      console.log(hotel.slug)
       window.location.href = (`https://${hotel.slug}.hotelsmarket.ru/hotel/${hotel.slug}`)
     },
     toRoomsPage(hotel) {
       this.$store.commit('SET_SELECTED_HOTEL', hotel)
       // this.$router.push(`${hotel.slug}.hotelsmarket.ru/${hotel.slug}/rooms`)
-      console.log(hotel.slug)
       window.location.href = (`https://${hotel.slug}.hotelsmarket.ru/${hotel.slug}/rooms`)
     },
     async fetchHotels(searchParams) {

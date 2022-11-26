@@ -9,9 +9,9 @@
       <div class="hotel-block" :key="hotel.id" v-for="hotel of hotels">
         <div class="container">
 
-          <nuxt-link v-if="hotel.hotel" class="title" :to="`/hotel/${hotel.hotel.slug}`">
+          <a v-if="hotel.hotel" class="title" @click="toHotelPage(hotel)" >
             <span class="title-text">{{hotel.hotel.name}}</span>
-          </nuxt-link>
+          </a>
           <div class="rating" v-if="hotel.hotel">
             <span class="icon-star" v-for="star of hotel.hotel.stars"></span>
           </div>
@@ -163,16 +163,19 @@ export default {
       return timeDif / (1000 * 3600 * 24)
     },
     toHotelPage(hotel) {
-      this.$router.push({
-        path: `/hotel/${hotel.hotel.slug}`
-      })
+
+      window.location.href=`https://${hotel.hotel.slug}.hotelsmarket.ru`
+
+      // this.$router.push({
+      //   path: `/hotel/${hotel.hotel.slug}`
+      // })
     },
     toRoomsPage(hotel) {
-      console.log(hotel)
+      window.location.href=`https://${hotel.hotel.slug}.hotelsmarket.ru/search/${this.$route.params.uid}/${hotel.id}`
       this.$store.commit('SET_SELECTED_HOTEL', hotel)
-      this.$router.push({
-        path: `/search/${this.$route.params.uid}/${hotel.id}`
-      })
+      // this.$router.push({
+      //   path: `/search/${this.$route.params.uid}/${hotel.id}`
+      // })
     },
     async fetchHotels(UID) {
       this.$store.commit('PRELOADER_TOGGLE', true)

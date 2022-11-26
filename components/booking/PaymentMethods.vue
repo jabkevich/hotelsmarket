@@ -72,7 +72,7 @@
 
 <script>
 import {mapGetters, mapState} from 'vuex'
-import {fetchData} from "../../mixins/fetchData";
+import {fetchData} from "@/mixins/fetchData";
 export default {
   name: "PaymentMethods",
   mixins: [fetchData],
@@ -161,7 +161,6 @@ export default {
               sum: this.totalPriceValue,
               type: paymentType
         }
-      console.log(order)
       try{
         const result = await this.$store.dispatch('createOrder', order)
         this.$store.commit('PRELOADER_TOGGLE', false)

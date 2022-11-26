@@ -14,8 +14,8 @@
 
 
 <script>
-const PageHeader = () => import ("../components/PageHeader")
-const PageFooter = () => import ("../components/PageFooter")
+const PageHeader = () => import ("@/components/PageHeader")
+const PageFooter = () => import ("@/components/PageFooter")
 
 export default {
   name: "MainLayout",
@@ -34,12 +34,6 @@ export default {
       document.documentElement.scrollTop = 0
     }
   },
-  beforeMount() {
-    const href = window.location.href.match(/(?:\/\/)(.+)(?:\.h)/);
-    if(href){
-      this.$router.push(`/hotel/${href[1]}/`)
-    }
-  }
 }
 </script>
 

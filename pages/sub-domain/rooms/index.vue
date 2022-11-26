@@ -22,8 +22,26 @@ export default {
   name: "rooms",
   layout: 'MainLayout',
   components: { BookingFormShort, HotelRoom },
-  async asyncData({store, params}) {
-    const hotel = await store.dispatch('getHotelBySlug', params.slug)
+  async asyncData({store, params, req, redirect}) {
+    const getSubDomen = () => {
+      if(process.server){
+        const host = req.headers.host;
+        const hostArray = host.split(".");
+        const subDomen = hostArray[0].replace("https://", "").replace("http://", "");
+        return subDomen;
+      } else {
+        const host =  window.location.href;
+        const hostArray = host.split(".");
+        const subDomen = hostArray[0].replace("https://", "").replace("http://", "");
+        return subDomen;
+      }
+    }
+    const hotel = await store.dispatch('getHotelBySlug', getSubDomen());
+    if(!hotel) {
+      redirect('https://hotelsmarket.ru/')
+    }
+
+    return hotel;
     return {hotel}
   },
   data () {
